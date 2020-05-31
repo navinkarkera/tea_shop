@@ -1,21 +1,27 @@
+import os
 from typing import List, Optional
 
 import databases
 import sqlalchemy
-from fastapi import APIRouter, FastAPI, Form, File, HTTPException, UploadFile, status
+from fastapi import APIRouter, FastAPI, File, Form, HTTPException, UploadFile, status
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import desc, select
 
-from .schema import ItemIn, ItemOut, ItemDetail
-from .model import metadata, items
+from .model import items, metadata
+from .schema import ItemDetail, ItemIn, ItemOut
 
-DATABASE_URL = "sqlite:///./data.db"
 app = FastAPI()
 api_router = APIRouter()
 app.mount("/static", StaticFiles(directory="data"), name="static")
-database = databases.Database(DATABASE_URL)
 
+if os.getenv("TEA_TESTING"):
+    DATABASE_URL = "sqlite:///./data-test.db"
+else:
+    DATABASE_URL = "sqlite:///./data.db"
+
+database = databases.Database(DATABASE_URL)
 engine = sqlalchemy.create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+
 metadata.create_all(engine)
 
 
@@ -48,7 +54,7 @@ async def read_item(id: int):
     )
 
 
-@api_router.post("/items/", response_model=ItemDetail)
+@api_router.post("/items/", response_model=ItemDetail, status_code=status.HTTP_201_CREATED)
 async def create_item(
     name: str = Form(...),
     price: float = Form(...),
@@ -75,3 +81,4 @@ async def delete_item(id: int):
 
 
 app.include_router(api_router, prefix="/api/v1", tags=["item"])
+app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="main")

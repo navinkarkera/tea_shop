@@ -94,7 +94,9 @@ export default {
       formData.set("name", this.name);
       formData.set("description", this.description);
       formData.set("price", this.price);
-      formData.append("file", this.imageFile);
+      if (this.imageFile) {
+        formData.append("file", this.imageFile);
+      }
       const resp = await this.axios.post("/items/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",

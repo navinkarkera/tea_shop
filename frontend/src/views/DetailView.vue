@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row align="center" justify="center">
-      <v-card class="mx-auto my-12" max-width="500">
+      <v-card class="mx-auto my-12" width="500">
         <v-img :src="image"> </v-img>
 
         <v-card-title>{{ name }}</v-card-title>

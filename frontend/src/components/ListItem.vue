@@ -1,7 +1,11 @@
 <template>
   <v-card>
     <v-list max-height="500" class="overflow-y-auto">
-      <v-list-item v-for="item in items" :key="item.id">
+      <p v-if="!items.length">
+        No items Found!
+        <strong>Please add using the bottom right button</strong>
+      </p>
+      <v-list-item v-else v-for="item in items" :key="item.id">
         <router-link :to="'/' + item.id">
           <v-list-item-avatar>
             <v-img :src="item.image"></v-img>
