@@ -7,6 +7,7 @@ items = sqlalchemy.Table(
     metadata,
     sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
     sqlalchemy.Column("name", sqlalchemy.String(128), index=True, nullable=False),
+    sqlalchemy.Column("description", sqlalchemy.Text, nullable=False),
     sqlalchemy.Column("price", sqlalchemy.Float, nullable=False, default=0),
     sqlalchemy.Column("image", sqlalchemy.String(128), nullable=True),
 )

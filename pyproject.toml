@@ -13,6 +13,7 @@ loguru = "^0.4.1"
 databases = { version = "^0.2.6", extras = ["sqlite"] }
 pydantic = { version = "^1.4", extras = ["email"] }
 python-multipart = "^0.0.5"
+aiofiles = "^0.5.0"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
