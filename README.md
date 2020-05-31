@@ -9,7 +9,9 @@
 ## Installation
 
 - Clone this repo
+- Optionally create virtualenv using `python -m venv .venv` and activate it using `source .venv/bin/activate`
 - `cd frontend/`
+- yarn install
 - `yarn build`
 
 ## Start server
